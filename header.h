@@ -1,13 +1,14 @@
 //
 //  main.c
 //  Projet CALM
-//  VERSION NON FINALE
+//  VERSION SANS IA
 //
 //  Created by Adrien MIGNEROT on 20/12/2017.
 //  Copyright © 2017 Projet CALM. All rights reserved.
 //
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <MacTypes.h>
 
@@ -22,12 +23,17 @@ typedef struct //Joueur
 {
     char nom[NOM];
     int score;
+    int pointsTournoi;
 }joueur;
 
 joueur initJoueur(void);
-void inittab(char tableau[nblignes][nbcolonnes]);
-void modiftab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i);
-void affichertab(char tableau[nblignes][nbcolonnes]);
-int testgagnant(char tableau[nblignes][nbcolonnes], joueur repertoire[]);
+void initTab(char tableau[nblignes][nbcolonnes]);
+void modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i);
+void afficherTab(char tableau[nblignes][nbcolonnes]);
+int testGagnant(char tableau[nblignes][nbcolonnes], joueur repertoire[]);
+void tournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int nombreJoueurs);
+void initPointsTournoi(joueur repertoire[]);
+int testGagnantTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int joueurA, int joueurB);
+void modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i, int joueurA, int joueurB);
 
 #endif /* Source_h */
