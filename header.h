@@ -28,12 +28,12 @@ typedef struct //Joueur
 
 joueur initJoueur(void);
 void initTab(char tableau[nblignes][nbcolonnes]);
-void modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i);
+int modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i);
 void afficherTab(char tableau[nblignes][nbcolonnes]);
 int testGagnant(char tableau[nblignes][nbcolonnes], joueur repertoire[]);
 void tournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int nombreJoueurs);
 void initPointsTournoi(joueur repertoire[]);
 int testGagnantTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int joueurA, int joueurB);
-void modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i, int joueurA, int joueurB);
+int modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i, int joueurA, int joueurB);
 
 #endif /* Source_h */
