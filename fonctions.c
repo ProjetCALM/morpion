@@ -36,7 +36,7 @@ void initTab(char tableau[nblignes][nbcolonnes])
     
 }
 
-void modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i)
+int modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i)
 {
     
     int colonne;
@@ -48,6 +48,9 @@ void modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i)
         printf("\nChoisir une colonne :\n");
     scanf("%d",&colonne);
     system("cls");
+        if(ligne == 0 || colonne == 0){
+            return 1;
+        }
     while(tableau [ligne -1][colonne -1] != ' '){
         afficherTab(tableau);
         printf("Cette case est deja prise !\n");
@@ -58,6 +61,7 @@ void modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i)
     }
         tableau [ligne -1][colonne -1] ='X';
     afficherTab(tableau);
+        return 0;
     } else {
     printf("Au tour de %s :\n\n", repertoire[1].nom);
         printf("Choisir une ligne :\n");
@@ -65,6 +69,9 @@ void modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i)
         printf("\nChoisir une colonne :\n");
     scanf("%d",&colonne);
     system("cls");
+        if(ligne == 0 || colonne == 0){
+            return 1;
+        }
     while(tableau [ligne -1][colonne -1] != ' '){
         afficherTab(tableau);
         printf("Cette case est deja prise !\n");
@@ -75,6 +82,7 @@ void modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i)
     }
         tableau [ligne -1][colonne -1] ='O';
     afficherTab(tableau);
+        return 0;
     }
     
 }
@@ -263,7 +271,7 @@ int testGagnantTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], 
     return 2;
 }
 
-void modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i, int joueurA, int joueurB)
+int modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i, int joueurA, int joueurB)
 {
 
     int colonne;
@@ -272,9 +280,13 @@ void modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], in
         printf("Au tour de %s :\n\n", repertoire[joueurA].nom);
         printf("Choisir une ligne :\n");
         scanf("%d", &ligne);
+        system("cls");
         printf("\nChoisir une colonne :\n");
         scanf("%d",&colonne);
         system("cls");
+        if(ligne == 0 || colonne == 0){
+            return 1;
+        }
         while(tableau [ligne -1][colonne -1] != ' '){
         afficherTab(tableau);
         printf("Cette case est deja prise !\n");
@@ -285,6 +297,7 @@ void modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], in
         }
         tableau [ligne -1][colonne -1] ='X';
         afficherTab(tableau);
+        return 0;
     } else {
         printf("Au tour de %s :\n\n", repertoire[joueurB].nom);
         printf("Choisir une ligne :\n");
@@ -292,6 +305,9 @@ void modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], in
         printf("\nChoisir une colonne :\n");
         scanf("%d",&colonne);
         system("cls");
+        if(ligne == 0 || colonne == 0){
+            return 1;
+        }
         while(tableau [ligne -1][colonne -1] != ' '){
             afficherTab(tableau);
             printf("Cette case est deja prise !\n");
@@ -302,6 +318,7 @@ void modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], in
         }
         tableau [ligne -1][colonne -1] ='O';
         afficherTab(tableau);
+        return 0;
     }
     
 }
@@ -315,7 +332,7 @@ void initPointsTournoi(joueur repertoire[]){
 
 void tournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int nombreJoueurs)
 {
-    int i = 0;
+    int i, quitter = 0;
     system("cls");
     printf("*** Vous etes en mode tournoi pour %d joueurs ***\n\n", nombreJoueurs);
     switch(nombreJoueurs){
@@ -330,10 +347,10 @@ void tournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int nombre
             afficherTab(tableau);
             do
             {
-                modifTabTournoi(tableau, repertoire, i, 0, 1);
+                quitter = modifTabTournoi(tableau, repertoire, i, 0, 1);
                 i++;
             }
-            while(!testGagnantTournoi(tableau, repertoire, 0, 1));
+            while(!testGagnantTournoi(tableau, repertoire, 0, 1) && quitter == 0);
             
             //Match 2
             
@@ -341,10 +358,10 @@ void tournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int nombre
             afficherTab(tableau);
             do
             {
-                modifTabTournoi(tableau, repertoire, i, 2, 3);
+                quitter = modifTabTournoi(tableau, repertoire, i, 2, 3);
                 i++;
             }
-            while(!testGagnantTournoi(tableau, repertoire, 2, 3));
+            while(!testGagnantTournoi(tableau, repertoire, 2, 3) && quitter == 0);
             
             //Match Final
             
@@ -363,10 +380,10 @@ void tournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int nombre
             afficherTab(tableau);
             do
             {
-                modifTabTournoi(tableau, repertoire, i, gagnants[0], gagnants[1]);
+                quitter = modifTabTournoi(tableau, repertoire, i, gagnants[0], gagnants[1]);
                 i++;
             }
-            while(!testGagnantTournoi(tableau, repertoire, gagnants[0], gagnants[1]));
+            while(!testGagnantTournoi(tableau, repertoire, gagnants[0], gagnants[1]) && quitter == 0);
             char car;
             for(i=0; i<4; i++){
                 if(repertoire[i].pointsTournoi == 2){
@@ -390,10 +407,10 @@ void tournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int nombre
                 afficherTab(tableau);
                 do
                 {
-                    modifTabTournoi(tableau, repertoire, i, j, k);
+                    quitter = modifTabTournoi(tableau, repertoire, i, j, k);
                     i++;
                 }
-                while(!testGagnantTournoi(tableau, repertoire, j, k));
+                while(!testGagnantTournoi(tableau, repertoire, j, k) && quitter == 0);
             }
             
             /* On trie le tableau en fonction du nombre de points de tournoi */
@@ -409,20 +426,20 @@ void tournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int nombre
             afficherTab(tableau);
             do
             {
-                modifTabTournoi(tableau, repertoire, i, gagnants[0], gagnants[1]);
+                quitter = modifTabTournoi(tableau, repertoire, i, gagnants[0], gagnants[1]);
                 i++;
             }
-            while(!testGagnantTournoi(tableau, repertoire, gagnants[0], gagnants[1]));
+            while(!testGagnantTournoi(tableau, repertoire, gagnants[0], gagnants[1]) && quitter == 0);
             system("cls");
             printf("Demi-Finale 2 : %s VS %s\n\n", repertoire[gagnants[2]].nom, repertoire[gagnants[3]].nom);
             initTab(tableau);
             afficherTab(tableau);
             do
             {
-                modifTabTournoi(tableau, repertoire, i, gagnants[2], gagnants[3]);
+                quitter = modifTabTournoi(tableau, repertoire, i, gagnants[2], gagnants[3]);
                 i++;
             }
-            while(!testGagnantTournoi(tableau, repertoire, gagnants[2], gagnants[3]));
+            while(!testGagnantTournoi(tableau, repertoire, gagnants[2], gagnants[3]) && quitter == 0);
             
             /* On trie le tableau en fonction du nombre de points de tournoi */
             for(i=0, j=0; i<8; i++){
@@ -438,10 +455,10 @@ void tournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int nombre
             afficherTab(tableau);
             do
             {
-                modifTabTournoi(tableau, repertoire, i, gagnants[0], gagnants[1]);
+                quitter = modifTabTournoi(tableau, repertoire, i, gagnants[0], gagnants[1]);
                 i++;
             }
-            while(!testGagnantTournoi(tableau, repertoire, gagnants[0], gagnants[1]));
+            while(!testGagnantTournoi(tableau, repertoire, gagnants[0], gagnants[1]) && quitter == 0);
             for(i=0, j=0; i<8; i++){
                 if(repertoire[i].pointsTournoi == 3){
                     repertoire[i].score += 20;
