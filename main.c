@@ -11,7 +11,7 @@
 
 joueur repertoire[REP];
 char tableau[nblignes][nbcolonnes];
-int i, choix, nombreJoueurs, niveau = 0;
+int i, choix, nombreJoueurs, niveau, quitter = 0;
 
 int main(int argc, const char * argv[]) {
     printf("*** Bienvenue sur le jeu des morpions ! ***\n\n");
@@ -35,10 +35,10 @@ int main(int argc, const char * argv[]) {
                 afficherTab(tableau); //affiche le jeu (vide)
                 do
                 {
-                    modifTab(tableau, repertoire, i);//enregistre la saisie du joueur (1 si i est paire, sinon 2).
+                    quitter = modifTab(tableau, repertoire, i);//enregistre la saisie du joueur (1 si i est paire, sinon 2).
                     i++;
                 }
-                while(!testGagnant(tableau, repertoire));//test si 3 mêmes cractères sont alignés, si oui, ajoute des points au score du gagnant et le félicite.
+                while(!testGagnant(tableau, repertoire) && quitter == 0);//test si 3 mêmes cractères sont alignés, si oui, ajoute des points au score du gagnant et le félicite.
                 break;
             case 2 :
                 printf("Saisir le nombre de joueurs (4 ou 8) :\n");
