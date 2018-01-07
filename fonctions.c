@@ -43,6 +43,7 @@ int modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i)
     int ligne;
     if(i%2 == 0){
     printf("Au tour de %s :\n\n", repertoire[0].nom);
+        printf("Saisir 0 pour quitter.\n");
         printf("Choisir une ligne :\n");
     scanf("%d", &ligne);
         printf("\nChoisir une colonne :\n");
@@ -64,6 +65,7 @@ int modifTab(char tableau[nblignes][nbcolonnes], joueur repertoire[], int i)
         return 0;
     } else {
     printf("Au tour de %s :\n\n", repertoire[1].nom);
+        printf("Saisir 0 pour quitter.\n");
         printf("Choisir une ligne :\n");
     scanf("%d", &ligne);
         printf("\nChoisir une colonne :\n");
@@ -278,6 +280,7 @@ int modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int
     int ligne;
     if(i%2 == 0){
         printf("Au tour de %s :\n\n", repertoire[joueurA].nom);
+        printf("Saisir 0 pour quitter.\n");
         printf("Choisir une ligne :\n");
         scanf("%d", &ligne);
         system("cls");
@@ -300,6 +303,7 @@ int modifTabTournoi(char tableau[nblignes][nbcolonnes], joueur repertoire[], int
         return 0;
     } else {
         printf("Au tour de %s :\n\n", repertoire[joueurB].nom);
+        printf("Saisir 0 pour quitter.\n");
         printf("Choisir une ligne :\n");
         scanf("%d", &ligne);
         printf("\nChoisir une colonne :\n");
